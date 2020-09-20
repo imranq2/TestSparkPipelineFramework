@@ -15,7 +15,7 @@ venv:
 devsetup:venv
 	source $(VENV_NAME)/bin/activate && \
     pip install --upgrade pip && \
-    pip install -r requirements.txt
+    pip install --upgrade -r requirements.txt
 
 .PHONY:test
 test:
