@@ -1,2 +1,5 @@
+wheel
 pytest
-sparkpipelineframework>=0.0.3
+sparkpipelineframework>=0.0.5
+pyspark==3.0.1
+
