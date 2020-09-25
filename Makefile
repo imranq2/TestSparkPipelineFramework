@@ -20,3 +20,7 @@ devsetup:venv
 .PHONY:test
 test:
 	pytest tests
+
+.PHONY:proxies
+proxies:
+	python3 venv/lib/python3.8/site-packages/spark_pipeline_framework/proxy_generator/generate_proxies.py

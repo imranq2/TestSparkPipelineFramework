@@ -1,14 +1,15 @@
 from pathlib import Path
-from typing import Union, List
 
-from pyspark.ml.base import Transformer, Estimator
 from pyspark.ml.pipeline import Pipeline
 from pyspark.sql.dataframe import DataFrame
 from pyspark.sql.session import SparkSession
 from pyspark.sql.types import StructType
 
 from spark_pipeline_framework.transformers.framework_csv_loader import FrameworkCsvLoader
-from spark_pipeline_framework.transformers.framework_sql_transformer import FrameworkSqlTransformer
+from spark_pipeline_framework.utilities.attr_dict import AttrDict
+from spark_pipeline_framework.utilities.flattener import flatten
+
+from library.features.flightpaths.features_flightpaths import FeaturesFlightpaths
 
 
 def test_simple_csv_and_sql_pipeline(spark_session: SparkSession) -> None:
@@ -24,20 +25,18 @@ def test_simple_csv_and_sql_pipeline(spark_session: SparkSession) -> None:
     spark_session.sql("DROP TABLE IF EXISTS default.flights")
 
     # Act
-    # parameters = AttrDict({
-    # })
+    parameters = AttrDict({
+    })
 
-    stages: List[Union[Estimator, Transformer]] = [
-        FrameworkCsvLoader(
-            view="flights",
-            path_to_csv=flights_path
-        ),
-        FrameworkSqlTransformer(
-            sql="SELECT carrier, crsarrtime FROM flights",
-            view="flights2",
-            name="flight_sql"
-        )
-    ]
+    stages = flatten([
+        [
+            FrameworkCsvLoader(
+                view="flights",
+                path_to_csv=flights_path
+            )
+        ],
+        FeaturesFlightpaths(parameters=parameters).transformers,
+    ])
 
     pipeline: Pipeline = Pipeline(stages=stages)
     transformer = pipeline.fit(df)
