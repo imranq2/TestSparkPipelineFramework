@@ -9,7 +9,7 @@ from spark_pipeline_framework.transformers.framework_csv_loader import Framework
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from spark_pipeline_framework.utilities.flattener import flatten
 
-from library.features.flightpaths.features_flightpaths import FeaturesFlightpaths
+from library.features.carriers.v1.features_carriers_v1 import FeaturesCarriersV1
 
 
 class MyPipeline(FrameworkPipeline):
@@ -23,7 +23,7 @@ class MyPipeline(FrameworkPipeline):
                     path_to_csv=parameters["flights_path"]
                 )
             ],
-            FeaturesFlightpaths(parameters=parameters).transformers,
+            FeaturesCarriersV1(parameters=parameters).transformers,
         ])
 
 
