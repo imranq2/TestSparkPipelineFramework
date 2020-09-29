@@ -1,6 +1,7 @@
 from spark_pipeline_framework.pipelines.framework_pipeline import FrameworkPipeline
 from spark_pipeline_framework.progress_logger.progress_logger import ProgressLogger
 from spark_pipeline_framework.transformers.framework_csv_loader import FrameworkCsvLoader
+from spark_pipeline_framework.transformers.framework_parquet_exporter import FrameworkParquetExporter
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from spark_pipeline_framework.utilities.flattener import flatten
 
@@ -18,6 +19,11 @@ class MyPipeline(FrameworkPipeline):
                     path_to_csv=parameters["flights_path"]
                 )
             ],
-            FeaturesCarriersV1(parameters=parameters).transformers,
+            FeaturesCarriersV1(parameters=parameters, progress_logger=progress_logger).transformers,
+            FrameworkParquetExporter(
+                view="flights2",
+                file_path=parameters["export_path"],
+                progress_logger=progress_logger
+            )
         ])
 
