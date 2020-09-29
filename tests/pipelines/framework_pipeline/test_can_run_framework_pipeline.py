@@ -51,3 +51,9 @@ def test_can_run_framework_pipeline(spark_session: SparkSession) -> None:
     assert path.isdir(export_path)
 
     assert len(listdir(export_path))
+
+    file_df: DataFrame = spark_session.read \
+        .option("mergeSchema", "true") \
+        .format("parquet").load(export_path)
+
+    assert file_df.count() > 0
