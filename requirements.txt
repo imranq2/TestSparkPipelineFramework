@@ -1,5 +1,5 @@
 wheel
-pytest
-sparkpipelineframework>=0.0.7
+pytest==6.1.0
+sparkpipelineframework>=0.0.9
 pyspark==3.0.1
 

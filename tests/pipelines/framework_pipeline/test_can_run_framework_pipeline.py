@@ -1,6 +1,6 @@
+from os import path, listdir
 from pathlib import Path
 from shutil import rmtree
-from os import path, listdir
 
 from pyspark.sql.dataframe import DataFrame
 from pyspark.sql.session import SparkSession
@@ -8,7 +8,7 @@ from pyspark.sql.types import StructType
 from spark_pipeline_framework.progress_logger.progress_logger import ProgressLogger
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 
-from library.pipelines.my_pipeline import MyPipeline
+from library.pipelines.my_pipeline.my_pipeline import MyPipeline
 
 
 def test_can_run_framework_pipeline(spark_session: SparkSession) -> None:

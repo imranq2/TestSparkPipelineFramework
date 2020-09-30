@@ -17,6 +17,11 @@ devsetup:venv
     pip install --upgrade pip && \
     pip install --upgrade -r requirements.txt
 
+.PHONY:update
+update:
+	pip install --upgrade -r requirements.txt
+	pip install --upgrade sparkpipelineframework
+
 .PHONY:test
 test:
 	pytest tests
