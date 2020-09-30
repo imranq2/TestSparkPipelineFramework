@@ -1,4 +1,0 @@
-id, patient_id, icd_code, icd_description
-100,1,E08.43, "Diabetes mellitus due to underlying condition with diabetic autonomic (poly) neuropathy"
-101,1,I50.20, "Unspecified systolic (congestive) heart failure"
-102,2,J44.9, "Chronic Obstructive Pulmonary Disease, Unspecified"

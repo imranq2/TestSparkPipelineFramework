@@ -11,7 +11,7 @@ from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from library.pipelines.demo_pipeline.v1.demo_pipeline import DemoPipeline
 
 
-def test_can_run_patient_pipeline(spark_session: SparkSession):
+def test_can_run_demo_pipeline(spark_session: SparkSession):
     # Arrange
     data_dir: Path = Path(__file__).parent.joinpath('./')
     patient_csv: str = f"file://{data_dir.joinpath('patient.csv')}"
@@ -40,6 +40,6 @@ def test_can_run_patient_pipeline(spark_session: SparkSession):
 
     # Assert
     result_df: DataFrame = spark_session.sql("SELECT * FROM patients")
-    result_df.show()
+    result_df.show(truncate=False)
 
     assert result_df.count() > 0

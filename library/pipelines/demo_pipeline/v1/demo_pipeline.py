@@ -6,6 +6,9 @@ from spark_pipeline_framework.transformers.framework_csv_loader import Framework
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from spark_pipeline_framework.utilities.flattener import flatten
 
+from library.data_sources.icd_lookup.data_sources_icd_lookup import DataSourcesIcdLookup
+from library.features.demo.patient_diagnosis.features_demo_patient_diagnosis import FeaturesDemoPatientDiagnosis
+
 
 class DemoPipeline(FrameworkPipeline):
     def __init__(self, parameters: Dict[str, Any], progress_logger: ProgressLogger) -> None:
@@ -21,5 +24,7 @@ class DemoPipeline(FrameworkPipeline):
                     view="diagnosis",
                     path_to_csv=parameters["diagnosis_csv"]
                 )
-            ]
+            ],
+            DataSourcesIcdLookup(parameters=parameters, progress_logger=progress_logger).transformers,
+            FeaturesDemoPatientDiagnosis(parameters=parameters, progress_logger=progress_logger).transformers
         ])
