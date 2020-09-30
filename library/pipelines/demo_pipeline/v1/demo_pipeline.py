@@ -3,6 +3,7 @@ from typing import Dict, Any
 from spark_pipeline_framework.pipelines.framework_pipeline import FrameworkPipeline
 from spark_pipeline_framework.progress_logger.progress_logger import ProgressLogger
 from spark_pipeline_framework.transformers.framework_csv_loader import FrameworkCsvLoader
+from spark_pipeline_framework.transformers.framework_select_columns_transformer import FrameworkSelectColumnsTransformer
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from spark_pipeline_framework.utilities.flattener import flatten
 
@@ -30,5 +31,8 @@ class DemoPipeline(FrameworkPipeline):
             DataSourcesIcdLookup(parameters=parameters, progress_logger=progress_logger).transformers,
             FeaturesDemoPatientDiagnosis(parameters=parameters, progress_logger=progress_logger).transformers,
             DataSourcesDiabetesCodes(parameters=parameters, progress_logger=progress_logger).transformers,
-            FeaturesDemoDiabetesFlg(parameters=parameters, progress_logger=progress_logger).transformers
+            FeaturesDemoDiabetesFlg(parameters=parameters, progress_logger=progress_logger).transformers,
+            [
+                FrameworkSelectColumnsTransformer(view="patients", drop_columns=["all_diagnosis_codes"])
+            ]
         ])
