@@ -6,7 +6,9 @@ from spark_pipeline_framework.transformers.framework_csv_loader import Framework
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 from spark_pipeline_framework.utilities.flattener import flatten
 
+from library.data_sources.diabetes_codes.data_sources_diabetes_codes import DataSourcesDiabetesCodes
 from library.data_sources.icd_lookup.data_sources_icd_lookup import DataSourcesIcdLookup
+from library.features.demo.diabetes_flg.features_demo_diabetes_flg import FeaturesDemoDiabetesFlg
 from library.features.demo.patient_diagnosis.features_demo_patient_diagnosis import FeaturesDemoPatientDiagnosis
 
 
@@ -26,5 +28,7 @@ class DemoPipeline(FrameworkPipeline):
                 )
             ],
             DataSourcesIcdLookup(parameters=parameters, progress_logger=progress_logger).transformers,
-            FeaturesDemoPatientDiagnosis(parameters=parameters, progress_logger=progress_logger).transformers
+            FeaturesDemoPatientDiagnosis(parameters=parameters, progress_logger=progress_logger).transformers,
+            DataSourcesDiabetesCodes(parameters=parameters, progress_logger=progress_logger).transformers,
+            FeaturesDemoDiabetesFlg(parameters=parameters, progress_logger=progress_logger).transformers
         ])
