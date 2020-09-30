@@ -1,15 +1,21 @@
+from typing import Dict, Any
+
+# noinspection Mypy
 from spark_pipeline_framework.pipelines.framework_pipeline import FrameworkPipeline
+# noinspection Mypy
 from spark_pipeline_framework.progress_logger.progress_logger import ProgressLogger
+# noinspection Mypy
 from spark_pipeline_framework.transformers.framework_csv_loader import FrameworkCsvLoader
+# noinspection Mypy
 from spark_pipeline_framework.transformers.framework_parquet_exporter import FrameworkParquetExporter
-from spark_pipeline_framework.utilities.attr_dict import AttrDict
+# noinspection Mypy
 from spark_pipeline_framework.utilities.flattener import flatten
 
 from library.features.carriers.v1.features_carriers_v1 import FeaturesCarriersV1
 
 
 class MyPipeline(FrameworkPipeline):
-    def __init__(self, parameters: AttrDict, progress_logger: ProgressLogger):
+    def __init__(self, parameters: Dict[str, Any], progress_logger: ProgressLogger):
         super(MyPipeline, self).__init__(parameters=parameters,
                                          progress_logger=progress_logger)
         self.transformers = flatten([
@@ -26,4 +32,3 @@ class MyPipeline(FrameworkPipeline):
                 progress_logger=progress_logger
             )
         ])
-

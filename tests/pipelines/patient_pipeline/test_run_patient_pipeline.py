@@ -8,7 +8,7 @@ from pyspark.sql.types import StructType
 from spark_pipeline_framework.progress_logger.progress_logger import ProgressLogger
 from spark_pipeline_framework.utilities.attr_dict import AttrDict
 
-from library.pipelines.patient_pipeline.v1.patient_pipeline import PatientPipeline
+from library.pipelines.demo_pipeline.v1.demo_pipeline import DemoPipeline
 
 
 def test_can_run_patient_pipeline(spark_session: SparkSession):
@@ -34,7 +34,7 @@ def test_can_run_patient_pipeline(spark_session: SparkSession):
     )
 
     with ProgressLogger() as progress_logger:
-        pipeline: PatientPipeline = PatientPipeline(parameters=parameters, progress_logger=progress_logger)
+        pipeline: DemoPipeline = DemoPipeline(parameters=parameters, progress_logger=progress_logger)
         transformer = pipeline.fit(df)
         transformer.transform(df)
 
