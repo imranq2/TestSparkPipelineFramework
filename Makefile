@@ -8,8 +8,8 @@ VENV_NAME=venv
 GIT_HASH=${CIRCLE_SHA1}
 PACKAGES_FOLDER=venv/lib/python3.8/site-packages
 
-include ${PACKAGES_FOLDER}/spark_pipeline_framework/Makefile.spark
-include ${PACKAGES_FOLDER}/spark_pipeline_framework/Makefile.docker
+-include ${PACKAGES_FOLDER}/spark_pipeline_framework/Makefile.spark
+-include ${PACKAGES_FOLDER}/spark_pipeline_framework/Makefile.docker
 
 .PHONY:venv
 venv:
@@ -46,3 +46,7 @@ up:
 .PHONY:down
 down:
 	docker-compose -p sparkpipelineframework -f ${PACKAGES_FOLDER}/spark_pipeline_framework/docker-compose.yml down
+
+.PHONY:init
+init: installspark docker devsetup
+
