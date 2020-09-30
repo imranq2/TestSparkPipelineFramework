@@ -19,13 +19,16 @@ devsetup:venv
 
 .PHONY:update
 update:
-	pip install --upgrade -r requirements.txt
+	source $(VENV_NAME)/bin/activate && \
+	pip install --upgrade -r requirements.txt && \
 	pip install --upgrade sparkpipelineframework
 
 .PHONY:test
 test:
+	source $(VENV_NAME)/bin/activate && \
 	pytest tests
 
 .PHONY:proxies
 proxies:
+	source $(VENV_NAME)/bin/activate && \
 	python3 venv/lib/python3.8/site-packages/spark_pipeline_framework/proxy_generator/generate_proxies.py

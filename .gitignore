@@ -2,3 +2,4 @@
 /venv/
 .idea/
 /tests/**/temp/
+/metastore_db/
